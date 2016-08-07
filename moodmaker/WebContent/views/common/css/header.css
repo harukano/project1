@@ -1,0 +1,71 @@
+@CHARSET "UTF-8";
+
+body {
+	margin-top: 0px;
+	background-color: #ededed;
+	font-family: 'Apple SD Gothic Neo', 나눔고딕, NanumGothic, '맑은 고딕',
+		'Malgun Gothic', 돋움, dotum, 굴림, gulim, applegothic, sans-serif;
+}
+
+.a:LINK {
+	color: #ffffff;
+	text-decoration: none;
+	font-size: 11pt;
+}
+.a:HOVER {		
+	color: #ffffff;
+	text-decoration: underline;
+}
+.a:VISITED{
+       color: #ffffff;
+       text-decoration: none;
+}
+
+.member:LINK {
+	color: #333333;
+	text-decoration: none;
+	font-size: 11pt;
+}
+.member:HOVER {		
+	color: #333333;
+	text-decoration: underline;
+}
+.member:VISITED{
+      color: #333333;
+      text-decoration: none;
+}
+
+#centered {
+	display:table;
+	margin-left:auto;
+	margin-right:auto;
+	background-color: #ffffff;
+	width: 1000px;
+}
+
+#loginForm {
+	text-align: right;
+	margin-top: 0px;
+	font-size: 11pt;
+	color : #333333;
+}
+
+#ad {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	background-color: #000000;
+	text-align: center;
+	color: #999999;
+}
+
+#menu {
+	font-family: 돋움체;
+	text-align:left;
+	background-color: #000000;
+	height: 60px;
+	width: 1000px;
+	font-size: 14pt;
+	font-weight: bold;
+	display:table;
+	vertical-align: middle;
+}

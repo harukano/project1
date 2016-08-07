@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="admin">
+
+	<!-- 팝업 SEQ 구해오기 -->
+	<select id="SELECT_POPUP_SEQ" resultType="int">
+		SELECT ifnull(MAX(SEQ),0)+1 AS MAX_SEQ 
+			  FROM TAB_POPUP
+	</select>
+	<!-- 팝업 등록 -->
+	<insert id="INSERT_POPUP" parameterType="Map">
+		INSERT 
+			  INTO TAB_POPUP (SEQ,
+			                 TITLE,
+			                 STRDATE,
+			                 STRTIME,
+			                 ENDDATE,
+			                 ENDTIME,
+			                 USEYN,
+			                 WIDSIZE,
+			                 HEISIZE,
+			                 WIDLOC,
+			                 HEILOC,
+			                 CONTEXT,
+			                 SHORTCUTYN,
+			                 SHORTCUTLINK,
+			                 LOCTYPE ,
+							 POPGRPYN
+		    )VALUES(	
+				   #{seq},
+				   #{tiTle},
+	               #{strDate},
+	               #{strTime},
+	               #{endDate},
+	               #{endTime},
+	               #{useYN},
+	               #{widSize},
+	               #{heiSize},
+	               #{widLoc},
+	               #{heiLoc},
+	               #{conText},
+	               #{shortCutYN},
+	               #{shortCutLink},
+	               #{loctype},
+	               #{popgrpyn}
+	       )  
+	</insert>
+	
+	<!-- 팝업 total 구해오기 -->
+	<select id="SELECT_POPUP_TOTAL" resultType="int">
+		SELECT COUNT(*) FROM TAB_POPUP
+	</select>
+	
+	<!-- 팝업 리스트 구해오기 -->
+	<select id="SELECT_POPUP_LIST" resultType="popupdto">
+		<![CDATA[ 
+		SELECT TS.* 
+			FROM (                                                    
+		    SELECT @ROWNUM1 := @ROWNUM1+1 ROWSEQ,                            
+		           AA.* 
+			FROM   (SELECT @ROWNUM1 := 0 ) R1,
+			       (SELECT @ROWNUM2 := @ROWNUM2+1 ROWDESCSEQ,  
+			                SEQ              ,
+							TITLE            ,
+							STRDATE          ,
+							STRTIME          ,
+							ENDDATE          ,
+							ENDTIME          ,
+							(CASE WHEN DATE(SYSDATE()) > ENDDATE && USEYN='Y' THEN 'T'
+		                          WHEN DATE(SYSDATE()) <= ENDDATE && USEYN='Y' THEN 'Y'
+		                          WHEN DATE(SYSDATE()) > ENDDATE && USEYN='N' THEN 'T'
+		                          WHEN DATE(SYSDATE()) <= ENDDATE && USEYN='N' THEN 'N'   end) USEYN ,
+							WIDSIZE          ,
+							HEISIZE          ,
+							WIDLOC           ,
+							HEILOC           ,
+							SHORTCUTYN       ,
+							SHORTCUTLINK     ,
+							CONTEXT          ,
+							LOCTYPE          ,
+							POPGRPYN
+			           FROM TAB_POPUP ,
+			                (SELECT @ROWNUM2 := 0 ) R2 
+		         	ORDER BY ROWDESCSEQ DESC
+		           ) AA 
+		         ) TS
+			WHERE TS.rowSeq BETWEEN #{offset}+1 AND #{offset}+#{length}
+			ORDER BY TS.ROWSEQ ASC
+		]]>
+	</select>
+	
+	<!-- 팝업 상세화면 -->
+	<select id="UPDATE_POPUP_ONE" resultType="popupdto" parameterType="int" >
+		SELECT 
+			SEQ,
+            TITLE,
+            STRDATE,
+            STRTIME,
+            ENDDATE,
+            ENDTIME,
+            USEYN,
+            WIDSIZE,
+            HEISIZE,
+            WIDLOC,
+            HEILOC,
+            CONTEXT,
+            SHORTCUTYN,
+            SHORTCUTLINK,
+            LOCTYPE ,
+			POPGRPYN
+		 FROM TAB_POPUP WHERE SEQ=#{seq}
+	</select>
+	
+	<!-- 팝업 수정 -->
+	<update id="UPDATE_POPUP" parameterType="Map">
+		UPDATE tab_popup 
+			SET
+			TITLE = #{tiTle} , 
+			STRDATE = #{strDate} , 
+			STRTIME = #{strTime} , 
+			ENDDATE = #{endDate} , 
+			ENDTIME = #{endTime} , 
+			USEYN = #{useYN} , 
+			WIDSIZE = #{widSize} , 
+			HEISIZE = #{heiSize} , 
+			WIDLOC = #{widLoc} , 
+			HEILOC = #{heiLoc} , 
+			SHORTCUTYN = #{shortCutYN} , 
+			SHORTCUTLINK = #{shortCutLink} , 
+			CONTEXT = #{conText} , 
+			LOCTYPE = #{loctype} , 
+			POPGRPYN = #{popgrpyn}
+	     WHERE SEQ = #{seq}     
+	</update>
+	
+	<!-- 팝업 삭제 -->
+	<delete id="DELETE_POPUP" parameterType="int">
+		DELETE FROM tab_POPUP
+			WHERE SEQ = #{seq}
+	</delete>
+	
+	<!-- 메인페이지 팝업 불러오기 -->
+	<select id="LIST_POUP" resultType="popupdto">
+		SELECT 
+			SEQ			, 
+			TITLE		, 
+			STRDATE		, 
+			STRTIME		, 
+			ENDDATE		, 
+			ENDTIME		, 
+			USEYN		, 
+			WIDSIZE		, 
+			HEISIZE		, 
+			WIDLOC		, 
+			HEILOC		, 
+			SHORTCUTYN	, 
+			SHORTCUTLINK, 
+			CONTEXT		, 
+			LOCTYPE		
+			FROM tab_popup		WHERE 1=1 
+			AND LOCTYPE = 'HOME'
+			AND DATE_FORMAT(SYSDATE(),'%Y%m%d%H%i') BETWEEN CONCAT(DATE_FORMAT(STRDATE,'%Y%m%d'), STRTIME) 
+			AND CONCAT(DATE_FORMAT(ENDDATE,'%Y%m%d'),ENDTIME)
+			AND USEYN = 'Y'
+	</select>
+
+	
+</mapper>

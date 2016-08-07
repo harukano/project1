@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+	PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+	
+<configuration>
+	<typeAliases>
+		<typeAlias type="reservation.model.ReservationDTO" alias="rdto"/>
+		<typeAlias type="reservation.model.RunningInfoBean" alias="ridto"/>
+	<!-- 	<typeAlias type="movie.model.MovieDTO" alias="mdto"/> -->
+		<typeAlias type="registration.model.RegistrationDTO" alias="rgdto"/>
+		<typeAlias type="admin.model.popup.PopupDTO" alias="popupdto"/>
+		<typeAlias type="admin.model.films.FilmsDTO" alias="filmsdto"/>
+		
+	</typeAliases>
+	 <mappers>
+		<mapper resource="reservation/controller/ReservationSQL.xml"/>
+		<mapper resource="movie/controller/MovieSQL.xml"/>
+		<mapper resource="registration/controller/RegistrationSQL.xml"/>
+		<mapper resource="common/controller/CommonSQL.xml"/>
+		<mapper resource="admin/controller/PopupSQL.xml"/>
+		<mapper resource="admin/controller/FilmsSQL.xml"/>
+	</mappers>
+</configuration>
+	

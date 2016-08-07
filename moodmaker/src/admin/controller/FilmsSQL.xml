@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="film">
+	<!-- 영화 ROWSEQ 구해오기 -->
+	<select id="SELECT_FILMIDX" resultType="int">
+		SELECT IFNULL(MAX(film_idx),0)+1 AS MAX_film_idx
+			FROM TAB_FILMS
+	</select>
+	
+	<!-- 영화 전체 카운트 구해오기 -->
+	<select id="SELECT_FILMS_TOTAl" resultType="int">
+		SELECT COUNT(*) FROM TAB_FILMS
+	</select>
+	
+	<!-- 영화 리스트 구해오기 -->
+	<select id="SELECT_FILMS_LIST" resultType="filmsdto" parameterType="Map">
+		SELECT TS.*
+		FROM (
+			SELECT @ROWNUM1 := @ROWNUM1+1 ROWSEQ,
+				AA.*
+			FROM (SELECT @ROWNUM1 := 0) R1,
+			     (SELECT @ROWNUM2 := @ROWNUM2+1 ROWDESCSEQ,
+					A.film_idx, 
+					(SELECT genre_description FROM tab_film_genre 
+					WHERE A.genre_code = genre_code) AS genre_code,
+					A.film_poster, 
+					A.film_name, 
+					A.film_release_date, 
+					A.film_close_date, 
+					A.film_director, 
+					A.film_cast, 
+					A.films_class, 
+					A.film_synopsys, 
+					A.remark
+			FROM 
+			tab_films A, (SELECT @ROWNUM2 := 0 ) R2 
+				          ORDER BY ROWDESCSEQ DESC
+		    ) AA
+		) TS
+		WHERE TS.rowSeq BETWEEN #{offset}+1 AND #{offset}+#{length}
+		ORDER BY TS.ROWSEQ ASC
+	</select>
+	
+	<!-- 장르리스트 불러오기 -->
+	<select id="SELECT_LIST_GENRE" resultType="Map">
+		SELECT genre_code,
+       		   genre_description
+ 		FROM tab_film_genre
+	</select>
+	
+	<!-- 영화등록 -->
+	<insert id="INSERT_FILMS" parameterType="Map">
+		INSERT INTO mood_maker.tab_films 
+		(	film_idx, 
+			genre_code, 
+			film_poster, 
+			film_name, 
+			film_release_date, 
+			film_close_date, 
+			film_director, 
+			film_cast, 
+			films_class, 
+			film_synopsys, 
+			remark
+		)
+		VALUES
+		(	#{film_idx}, 
+			#{genre_code}, 
+			#{film_poster}, 
+			#{film_name}, 
+			#{film_release_date}, 
+			#{film_close_date}, 
+			#{film_director}, 
+			#{film_cast}, 
+			#{films_class}, 
+			#{film_synopsys}, 
+			''
+		);
+	</insert>
+	
+	<!-- 영화상세 -->
+	<select id="UPDATE_FILMS_FORM" parameterType="int" resultType="filmsdto">
+		SELECT * FROM TAB_FILMS WHERE film_idx = #{film_idx}
+	</select>
+			  
+
+	
+</mapper>

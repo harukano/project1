@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<decorators defaultdir="/views/common/decorators">
+	
+   	<!-- <decorator name="about" page="nothing.jsp">
+        <pattern>/about.do</pattern>
+    </decorator> -->
+	<decorator name="default" page="default.jsp">
+        <pattern>/*.do</pattern>
+    </decorator>
+
+</decorators>

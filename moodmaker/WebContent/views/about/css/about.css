@@ -1,0 +1,59 @@
+@CHARSET "UTF-8";
+
+body {
+	margin-top: 0px;
+	margin-left: 0px;
+	background-color: #ededed;
+}
+
+a:LINK {		
+	color: #ffffff;
+	text-decoration: none;
+	font-size: 10pt;
+}
+
+a:HOVER {		
+	color: #006699;
+	text-decoration: underline;
+}
+
+a:VISITED {
+      color: #006699;
+      text-decoration: none;
+}
+
+#centered {
+	display:table;
+	margin-left:auto;
+	margin-right:auto;
+	background-color: #ffffff;
+	width: 800px;
+}
+
+#aboutImage {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	background-color: #000000;
+	text-align: center;
+	color: #999999;
+}
+
+#aboutContent {
+	background-color: #ffffff;
+	text-align: left;
+	color: #333333;
+	font-family: 돋움체;
+	line-height: 25px;
+	padding: 10px;
+	font-size: 11pt;
+}
+
+#footer {
+	text-align: center;
+	margin-top: 0px;
+	font-size: 11pt;
+	line-height: 25px;
+	color : #ffffff;
+	background-color: #000000;
+	padding: 20px;
+}

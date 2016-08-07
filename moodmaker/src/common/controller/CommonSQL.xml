@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="common">
+	<select id="login" resultType="rgdto">
+	select membership_email, membership_another_name,membership_point from tab_membership where membership_email=#{email} and membership_password=#{password};
+	</select>
+
+	
+	
+</mapper>
+
+
+
+
+

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<decorators defaultdir="views/common/decorators">
+    <excludes>
+		<pattern>/about.do</pattern>
+	</excludes>
+
+</decorators>

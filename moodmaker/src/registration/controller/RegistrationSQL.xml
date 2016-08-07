@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="registration">
+	<select id="checkedemail" resultType="int" parameterType="String">
+	select count(membership_email) from tab_membership where membership_email = #{membership_email};
+	</select>
+	<select id="checkedname" resultType="int" parameterType="String">
+	select count(membership_another_name) from tab_membership where membership_another_name = #{membership_another_name};
+	</select>
+	<select id="checkedallemail" resultType="int" parameterType="HashMap">
+	select count(membership_email) from tab_membership where membership_email = #{membership_email} and membership_loss_email = #{membership_loss_email};
+	</select>
+	<insert id="registmember" parameterType="rgdto">
+	INSERT INTO `tab_membership`
+	(`membership_email`,
+	`membership_password`,
+	`membership_salt`,
+	`membership_another_name`,
+	`membership_point`,
+	`membership_loss_email`)
+	VALUES(#{membership_email},#{membership_password},'defualt',#{membership_another_name},0,#{membership_loss_email} )
+	</insert>
+	<update id="resetpassword" parameterType="rgdto">
+	update tab_membership set membership_password=#{membership_password} where membership_email=#{membership_email}
+	</update>
+	
+</mapper>

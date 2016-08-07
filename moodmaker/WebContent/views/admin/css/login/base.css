@@ -1,0 +1,62 @@
+﻿@charset "utf-8";
+
+* {
+	margin:0;
+	padding:0;
+}
+body {
+	color:#666;
+	font-family:"돋움", Dotum, "굴림", Gulim, Sans-serif;
+	font-size:12px;
+	line-height:150%;
+}
+a {
+	color:#666;
+	text-decoration:none;
+}
+a:active, a:hover, a:focus {
+	color:#333;
+	text-decoration:underline;
+	border:none;
+}
+h1, h2, h3, h4, h5, h6  {
+	font-size:100%;
+}
+fieldset, form, label, address, abbr, div, blockquote, p, span, em, dl, dt, dd, ul, ol, li, button, img {
+	list-style:none;
+	border:none;
+	font-style:normal;
+}
+input, select, textarea {
+	color:#666;
+	font-family:"돋움", Dotum, "굴림", Gulim, Sans-serif;
+	font-size:12px;
+	vertical-align:middle;
+}
+label {
+	display:inline-block;
+	vertical-align:middle;
+}
+table, th, td {
+	border:0;
+	border-spacing:0;
+	_border-collapse:collapse;
+}
+*:first-child+html table {
+	border-collapse:collapse;
+}
+legend, caption  {
+	display:none;
+	/*visibility:hidden;
+	font-size:0;
+	line-height:0;
+	text-indent:-5000px;*/
+}
+hr {
+	display:none;
+}
+.logo_img{
+	color: white;
+	font-size: 25px;
+
+}
